@@ -1,0 +1,116 @@
+[gd_scene load_steps=2 format=3 uid="uid://cp2ywioo6iu55"]
+
+[ext_resource type="Script" path="res://GUIs/PauseMenu/keybinds.gd" id="1_t2mo2"]
+
+[node name="Keybinds" type="VBoxContainer"]
+offset_right = 212.0
+offset_bottom = 310.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+alignment = 1
+script = ExtResource("1_t2mo2")
+
+[node name="MovementHeader" type="Label" parent="."]
+layout_mode = 2
+text = "            -- Movement --            "
+horizontal_alignment = 1
+
+[node name="Forward" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Forward"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Forward"
+horizontal_alignment = 2
+
+[node name="Button" type="Button" parent="Forward"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "W"
+
+[node name="Backward" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Backward"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Back"
+horizontal_alignment = 2
+
+[node name="Button" type="Button" parent="Backward"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "S"
+
+[node name="Left" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Left"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Left
+"
+horizontal_alignment = 2
+
+[node name="Button" type="Button" parent="Left"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "A"
+
+[node name="Right" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Right"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Right"
+horizontal_alignment = 2
+
+[node name="Button" type="Button" parent="Right"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "D"
+
+[node name="Jump" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Jump"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Jump"
+horizontal_alignment = 2
+
+[node name="Button" type="Button" parent="Jump"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SPACE"
+
+[node name="Dash" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Dash"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Dash"
+horizontal_alignment = 2
+
+[node name="Button" type="Button" parent="Dash"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "LSHIFT"
+
+[node name="Crouch" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Crouch"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Crouch/Slide"
+horizontal_alignment = 2
+
+[node name="Button" type="Button" parent="Crouch"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "LCTRL"

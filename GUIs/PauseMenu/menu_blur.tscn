@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://go852uvq3cc"]
+
+[ext_resource type="Shader" path="res://GUIs/PauseMenu/pause_menu_blur.gdshader" id="1_ms3d3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4t826"]
+shader = ExtResource("1_ms3d3")
+shader_parameter/amount = 1.0
+
+[node name="MenuBlur" type="ColorRect"]
+material = SubResource("ShaderMaterial_4t826")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

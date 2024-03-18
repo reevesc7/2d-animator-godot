@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dag7dqomfeghd"]
+
+[node name="MovementSettings" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 10
+
+[node name="LookSensitivity" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="LookSensitivity"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Look Sensitivity"
+horizontal_alignment = 2
+
+[node name="WalkSpeed" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="WalkSpeed"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Walk Speed
+"
+horizontal_alignment = 2

@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=3 uid="uid://chlvrrnvlhyg6"]
+
+[ext_resource type="Texture2D" uid="uid://duaorakf3u3bt" path="res://icon.svg" id="1_bqcl0"]
+[ext_resource type="PackedScene" uid="uid://da4rvqq8r5272" path="res://Scenes/drag_button.tscn" id="2_1lp2n"]
+[ext_resource type="PackedScene" uid="uid://jxwc7uqxx2ap" path="res://Scenes/connector.tscn" id="3_sa44m"]
+[ext_resource type="PackedScene" uid="uid://d0wpucywhersh" path="res://Scenes/position_report.tscn" id="5_cfn8e"]
+[ext_resource type="PackedScene" uid="uid://cqpu7y25y8vhj" path="res://Scenes/angle_report.tscn" id="6_c28ik"]
+[ext_resource type="PackedScene" uid="uid://die5e47j2w4hj" path="res://Scenes/length_report.tscn" id="7_21xef"]
+[ext_resource type="PackedScene" uid="uid://ji8qhbqe0s2r" path="res://Scenes/prop.tscn" id="8_iayus"]
+
+[node name="HubNetwork" type="Node2D"]
+
+[node name="Connector" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("3_sa44m")]
+default_color = Color(0, 0, 0, 1)
+targets = [NodePath("../Prop"), NodePath("../Prop2"), NodePath("../Prop3")]
+
+[node name="Prop" parent="." instance=ExtResource("8_iayus")]
+position = Vector2(400, 752)
+
+[node name="DragButton" parent="Prop" node_paths=PackedStringArray("target") instance=ExtResource("2_1lp2n")]
+target = NodePath("..")
+
+[node name="Sprite2D" type="Sprite2D" parent="Prop"]
+texture = ExtResource("1_bqcl0")
+
+[node name="PositionReport" parent="Prop" node_paths=PackedStringArray("target") instance=ExtResource("5_cfn8e")]
+offset_top = 64.0
+offset_bottom = 88.0
+target = NodePath("..")
+
+[node name="Prop2" parent="." instance=ExtResource("8_iayus")]
+position = Vector2(688, 300)
+
+[node name="DragButton" parent="Prop2" node_paths=PackedStringArray("target") instance=ExtResource("2_1lp2n")]
+target = NodePath("..")
+
+[node name="Sprite2D" type="Sprite2D" parent="Prop2"]
+texture = ExtResource("1_bqcl0")
+
+[node name="PositionReport" parent="Prop2" node_paths=PackedStringArray("target") instance=ExtResource("5_cfn8e")]
+offset_top = 64.0
+offset_bottom = 88.0
+target = NodePath("..")
+
+[node name="Prop3" parent="." instance=ExtResource("8_iayus")]
+position = Vector2(1000, 500)
+
+[node name="DragButton" parent="Prop3" node_paths=PackedStringArray("target") instance=ExtResource("2_1lp2n")]
+target = NodePath("..")
+
+[node name="Sprite2D" type="Sprite2D" parent="Prop3"]
+texture = ExtResource("1_bqcl0")
+
+[node name="PositionReport" parent="Prop3" node_paths=PackedStringArray("target") instance=ExtResource("5_cfn8e")]
+offset_top = 64.0
+offset_bottom = 88.0
+target = NodePath("..")
+
+[node name="AngleReport" parent="." node_paths=PackedStringArray("vertex", "initial", "terminal") instance=ExtResource("6_c28ik")]
+offset_right = 128.0
+offset_bottom = 24.0
+vertex = NodePath("../Prop2")
+initial = NodePath("../Prop")
+terminal = NodePath("../Prop3")
+
+[node name="LengthReport" parent="." node_paths=PackedStringArray("connector") instance=ExtResource("7_21xef")]
+offset_left = 0.0
+offset_top = 24.0
+offset_right = 128.0
+offset_bottom = 48.0
+connector = NodePath("../Connector")

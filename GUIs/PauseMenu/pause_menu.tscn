@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://duufd56bvgs8u"]
+
+[ext_resource type="Script" path="res://GUIs/PauseMenu/pause_menu.gd" id="1_6bos7"]
+[ext_resource type="PackedScene" uid="uid://go852uvq3cc" path="res://GUIs/PauseMenu/menu_blur.tscn" id="2_sw0fe"]
+[ext_resource type="PackedScene" uid="uid://cp2ywioo6iu55" path="res://GUIs/PauseMenu/keybinds.tscn" id="3_n41bp"]
+[ext_resource type="PackedScene" uid="uid://dag7dqomfeghd" path="res://GUIs/PauseMenu/movement_settings.tscn" id="4_elncn"]
+[ext_resource type="PackedScene" uid="uid://chcwqx0rj0cvn" path="res://GUIs/PauseMenu/gravity_settings.tscn" id="5_xpy3t"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_6bos7")
+
+[node name="MenuBlur" parent="." instance=ExtResource("2_sw0fe")]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 240
+theme_override_constants/margin_top = 240
+theme_override_constants/margin_right = 240
+theme_override_constants/margin_bottom = 240
+
+[node name="BoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Resume" type="Button" parent="MarginContainer/BoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="Quit" type="Button" parent="MarginContainer/BoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="TabContainer" type="TabContainer" parent="MarginContainer/BoxContainer"]
+layout_mode = 2
+clip_tabs = false
+
+[node name="Keybinds" parent="MarginContainer/BoxContainer/TabContainer" instance=ExtResource("3_n41bp")]
+layout_mode = 2
+
+[node name="Movement Settings" parent="MarginContainer/BoxContainer/TabContainer" instance=ExtResource("4_elncn")]
+visible = false
+layout_mode = 2
+
+[node name="Gravity Settings" parent="MarginContainer/BoxContainer/TabContainer" instance=ExtResource("5_xpy3t")]
+visible = false
+layout_mode = 2

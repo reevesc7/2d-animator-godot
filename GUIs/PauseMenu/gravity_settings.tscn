@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://chcwqx0rj0cvn"]
+
+[node name="GravitySettings" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Direction" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Direction"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Direction"
+horizontal_alignment = 2
+
+[node name="Shape" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Shape"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Shape"
+horizontal_alignment = 2
