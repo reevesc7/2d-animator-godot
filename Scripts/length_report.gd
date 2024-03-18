@@ -10,7 +10,6 @@ func _ready() -> void:
 	for target in targets:
 		target.position_changed.connect(_on_target_changed)
 	_init_lengths()
-	_set_text(_sum_lengths(segment_lengths))
 
 
 func _init_lengths() -> void:
@@ -26,7 +25,7 @@ func _on_target_changed(target: Prop) -> void:
 		segment_lengths[index - 1] = targets[index - 1].scaled_position.distance_to(targets[index].scaled_position)
 	if index < targets.size() - 1:
 		segment_lengths[index] = targets[index].scaled_position.distance_to(targets[index + 1].scaled_position)
-	_set_text(_sum_lengths(segment_lengths))
+	_set_text()
 
 
 func _sum_lengths(lengths: Array[float]) -> float:
@@ -36,5 +35,5 @@ func _sum_lengths(lengths: Array[float]) -> float:
 	return sum
 
 
-func _set_text(length: float) -> void:
-	text = str(snappedf(length, 0.001))
+func _set_text() -> void:
+	text = str(snappedf(_sum_lengths(segment_lengths), 0.001))
