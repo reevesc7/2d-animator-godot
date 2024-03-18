@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Globals="*res://Scripts/Globals.gd"
 PauseMenu="*res://GUIs/PauseMenu/pause_menu.tscn"
 
 [display]

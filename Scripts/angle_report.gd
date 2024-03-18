@@ -11,17 +11,18 @@ func _ready() -> void:
 	vertex.position_changed.connect(_on_point_changed)
 	initial.position_changed.connect(_on_point_changed)
 	terminal.position_changed.connect(_on_point_changed)
-	_on_point_changed()
+	_update_targets()
 
 
-#func _physics_process(_delta: float) -> void:
-	#if vertex.NOTIFICATION_TRANSFORM_CHANGED or initial.NOTIFICATION_TRANSFORM_CHANGED or terminal.NOTIFICATION_TRANSFORM_CHANGED:
-		#var initial_rel_position: Vector2 = initial.position - vertex.position
-		#var terminal_rel_position: Vector2 = terminal.position - vertex.position
-		#text = str(snappedf(rad_to_deg(initial_rel_position.angle_to(terminal_rel_position)), 0.001))
+func _on_point_changed(_prop: Prop) -> void:
+	_update_targets()
 
 
-func _on_point_changed() -> void:
-	var initial_rel_position: Vector2 = initial.position - vertex.position
-	var terminal_rel_position: Vector2 = terminal.position - vertex.position
-	text = str(snappedf(rad_to_deg(initial_rel_position.angle_to(terminal_rel_position)), 0.001))
+func _update_targets() -> void:
+	var initial_rel_position: Vector2 = initial.scaled_position - vertex.scaled_position
+	var terminal_rel_position: Vector2 = terminal.scaled_position - vertex.scaled_position
+	_set_text(initial_rel_position.angle_to(terminal_rel_position))
+
+
+func _set_text(angle: float) -> void:
+	text = str(snappedf(rad_to_deg(angle), 0.001))

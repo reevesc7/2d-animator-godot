@@ -63,9 +63,9 @@ vertex = NodePath("../Prop2")
 initial = NodePath("../Prop")
 terminal = NodePath("../Prop3")
 
-[node name="LengthReport" parent="." node_paths=PackedStringArray("connector") instance=ExtResource("7_21xef")]
+[node name="LengthReport" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("7_21xef")]
 offset_left = 0.0
 offset_top = 24.0
 offset_right = 128.0
 offset_bottom = 48.0
-connector = NodePath("../Connector")
+targets = [NodePath("../Prop"), NodePath("../Prop2"), NodePath("../Prop3")]
