@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dng1g3mcvhmyf"]
+
+[ext_resource type="Script" path="res://Scripts/follow_animator.gd" id="1_iy4lt"]
+
+[node name="FollowAnimator" type="Node"]
+script = ExtResource("1_iy4lt")

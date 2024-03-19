@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://die5e47j2w4hj" path="res://Scenes/length_report.tscn" id="7_21xef"]
 [ext_resource type="PackedScene" uid="uid://ji8qhbqe0s2r" path="res://Scenes/prop.tscn" id="8_iayus"]
 [ext_resource type="PackedScene" uid="uid://1upoas7ecosc" path="res://Scenes/path.tscn" id="8_yoed8"]
-[ext_resource type="PackedScene" uid="uid://dng1g3mcvhmyf" path="res://Scenes/follower.tscn" id="9_hrnbf"]
+[ext_resource type="PackedScene" uid="uid://dng1g3mcvhmyf" path="res://Scenes/follow_animator.tscn" id="9_hrnbf"]
 
 [node name="HubNetwork" type="Node2D"]
 script = ExtResource("1_pucml")
@@ -76,10 +76,10 @@ vertex = NodePath("../Prop2")
 initial = NodePath("../Prop")
 terminal = NodePath("../Prop3")
 
-[node name="Follower" parent="." node_paths=PackedStringArray("target", "path", "trigger") instance=ExtResource("9_hrnbf")]
-target = NodePath("../MovingProp")
+[node name="FollowAnimator" parent="." node_paths=PackedStringArray("path", "target", "trigger") instance=ExtResource("9_hrnbf")]
 path = NodePath("../Path")
-trigger = NodePath("../Button")
+target = NodePath("../MovingProp")
+trigger = NodePath("../PlayButton")
 
 [node name="MovingProp" parent="." instance=ExtResource("8_iayus")]
 position = Vector2(196, 428)
@@ -95,7 +95,7 @@ offset_top = 64.0
 offset_bottom = 88.0
 target = NodePath("..")
 
-[node name="Button" type="Button" parent="."]
+[node name="PlayButton" type="Button" parent="."]
 offset_left = 1830.0
 offset_top = 24.0
 offset_right = 1894.0

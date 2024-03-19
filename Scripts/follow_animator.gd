@@ -1,10 +1,8 @@
 class_name Follower
-extends Node
+extends Animator
 
 
-@export var target: Prop
 @export var path: Path
-@export var trigger: Button
 
 @export var speed: float = 64.0
 
@@ -18,7 +16,7 @@ func _ready() -> void:
 		queue_free()
 		return
 	if not path:
-		path = get_node_or_null("Path")
+		path = get_node_or_null("Path") as Path
 		if not path:
 			push_warning("No Path detectable; Follower will not move target")
 			queue_free()
@@ -40,11 +38,7 @@ func _physics_process(delta: float) -> void:
 		moving = false
 
 
-func _on_triggered() -> void:
-	move()
-
-
-func move() -> void:
+func animate() -> void:
 	target.position = path.targets[0].position
 	path_target = 1
 	moving = true

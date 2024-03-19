@@ -5,5 +5,6 @@
 [node name="AngleReport" type="Label"]
 offset_right = 40.0
 offset_bottom = 23.0
+text = "<angle>"
 horizontal_alignment = 1
 script = ExtResource("1_ekuxh")

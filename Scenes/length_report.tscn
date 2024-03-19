@@ -14,5 +14,6 @@ offset_right = 64.0
 offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2
+text = "<length>"
 horizontal_alignment = 1
 script = ExtResource("1_qlf54")
