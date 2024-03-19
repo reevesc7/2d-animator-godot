@@ -28,7 +28,7 @@ offset_right = -832.0
 offset_bottom = -492.0
 
 [node name="Prop" parent="." instance=ExtResource("8_iayus")]
-position = Vector2(532, 740)
+position = Vector2(467, 744)
 
 [node name="DragButton" parent="Prop" node_paths=PackedStringArray("target") instance=ExtResource("2_1lp2n")]
 target = NodePath("..")
