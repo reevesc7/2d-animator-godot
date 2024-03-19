@@ -1,21 +1,28 @@
-[gd_scene load_steps=8 format=3 uid="uid://chlvrrnvlhyg6"]
+[gd_scene load_steps=11 format=3 uid="uid://chlvrrnvlhyg6"]
 
 [ext_resource type="Texture2D" uid="uid://duaorakf3u3bt" path="res://icon.svg" id="1_bqcl0"]
+[ext_resource type="Script" path="res://Scripts/hub_network.gd" id="1_pucml"]
 [ext_resource type="PackedScene" uid="uid://da4rvqq8r5272" path="res://Scenes/drag_button.tscn" id="2_1lp2n"]
 [ext_resource type="PackedScene" uid="uid://jxwc7uqxx2ap" path="res://Scenes/connector.tscn" id="3_sa44m"]
 [ext_resource type="PackedScene" uid="uid://d0wpucywhersh" path="res://Scenes/position_report.tscn" id="5_cfn8e"]
 [ext_resource type="PackedScene" uid="uid://cqpu7y25y8vhj" path="res://Scenes/angle_report.tscn" id="6_c28ik"]
 [ext_resource type="PackedScene" uid="uid://die5e47j2w4hj" path="res://Scenes/length_report.tscn" id="7_21xef"]
 [ext_resource type="PackedScene" uid="uid://ji8qhbqe0s2r" path="res://Scenes/prop.tscn" id="8_iayus"]
+[ext_resource type="PackedScene" uid="uid://1upoas7ecosc" path="res://Scenes/path.tscn" id="8_yoed8"]
+[ext_resource type="PackedScene" uid="uid://dng1g3mcvhmyf" path="res://Scenes/follower.tscn" id="9_hrnbf"]
 
 [node name="HubNetwork" type="Node2D"]
+script = ExtResource("1_pucml")
 
-[node name="Connector" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("3_sa44m")]
+[node name="Connector" parent="." node_paths=PackedStringArray("path") instance=ExtResource("3_sa44m")]
 default_color = Color(0, 0, 0, 1)
-targets = [NodePath("../Prop"), NodePath("../Prop2"), NodePath("../Prop3")]
+path = NodePath("Path")
+
+[node name="Path" parent="Connector" node_paths=PackedStringArray("targets") instance=ExtResource("8_yoed8")]
+targets = [NodePath("../../Prop"), NodePath("../../Prop2"), NodePath("../../Prop3")]
 
 [node name="Prop" parent="." instance=ExtResource("8_iayus")]
-position = Vector2(400, 752)
+position = Vector2(532, 740)
 
 [node name="DragButton" parent="Prop" node_paths=PackedStringArray("target") instance=ExtResource("2_1lp2n")]
 target = NodePath("..")
@@ -29,7 +36,7 @@ offset_bottom = 88.0
 target = NodePath("..")
 
 [node name="Prop2" parent="." instance=ExtResource("8_iayus")]
-position = Vector2(688, 300)
+position = Vector2(762, 396)
 
 [node name="DragButton" parent="Prop2" node_paths=PackedStringArray("target") instance=ExtResource("2_1lp2n")]
 target = NodePath("..")
@@ -43,7 +50,7 @@ offset_bottom = 88.0
 target = NodePath("..")
 
 [node name="Prop3" parent="." instance=ExtResource("8_iayus")]
-position = Vector2(1000, 500)
+position = Vector2(1106, 506)
 
 [node name="DragButton" parent="Prop3" node_paths=PackedStringArray("target") instance=ExtResource("2_1lp2n")]
 target = NodePath("..")
@@ -63,9 +70,35 @@ vertex = NodePath("../Prop2")
 initial = NodePath("../Prop")
 terminal = NodePath("../Prop3")
 
-[node name="LengthReport" parent="." node_paths=PackedStringArray("targets") instance=ExtResource("7_21xef")]
+[node name="LengthReport" parent="." node_paths=PackedStringArray("path") instance=ExtResource("7_21xef")]
 offset_left = 0.0
 offset_top = 24.0
 offset_right = 128.0
 offset_bottom = 48.0
-targets = [NodePath("../Prop"), NodePath("../Prop2"), NodePath("../Prop3")]
+path = NodePath("../Connector/Path")
+
+[node name="Follower" parent="." node_paths=PackedStringArray("target", "path", "trigger") instance=ExtResource("9_hrnbf")]
+target = NodePath("../MovingProp")
+path = NodePath("../Connector/Path")
+trigger = NodePath("../Button")
+
+[node name="MovingProp" parent="." instance=ExtResource("8_iayus")]
+position = Vector2(196, 428)
+
+[node name="DragButton" parent="MovingProp" node_paths=PackedStringArray("target") instance=ExtResource("2_1lp2n")]
+target = NodePath("..")
+
+[node name="Sprite2D" type="Sprite2D" parent="MovingProp"]
+texture = ExtResource("1_bqcl0")
+
+[node name="PositionReport" parent="MovingProp" node_paths=PackedStringArray("target") instance=ExtResource("5_cfn8e")]
+offset_top = 64.0
+offset_bottom = 88.0
+target = NodePath("..")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 1830.0
+offset_top = 24.0
+offset_right = 1894.0
+offset_bottom = 88.0
+text = "PLAY"

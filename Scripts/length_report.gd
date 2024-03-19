@@ -1,30 +1,36 @@
 extends Label
 
 
-@export var targets: Array[Prop]
+@export var path: Path
 
 var segment_lengths: Array[float]
 
 
 func _ready() -> void:
-	for target in targets:
+	if not path:
+		path = get_node_or_null("Path")
+		if not path:
+			push_warning("LENGTHREPORT: No Path detectable; length will be 0")
+			text = "0"
+			return
+	for target in path.targets:
 		target.position_changed.connect(_on_target_changed)
 	_init_lengths()
 
 
 func _init_lengths() -> void:
 	segment_lengths = []
-	if targets.size() > 1:
-		for target in range(1, targets.size()):
-			segment_lengths.append(targets[target - 1].scaled_position.distance_to(targets[target].scaled_position))
+	if path.targets.size() > 1:
+		for target in range(1, path.targets.size()):
+			segment_lengths.append(path.targets[target - 1].scaled_position.distance_to(path.targets[target].scaled_position))
 
 
 func _on_target_changed(target: Prop) -> void:
-	var index: int = targets.find(target)
+	var index: int = path.targets.find(target)
 	if index > 0:
-		segment_lengths[index - 1] = targets[index - 1].scaled_position.distance_to(targets[index].scaled_position)
-	if index < targets.size() - 1:
-		segment_lengths[index] = targets[index].scaled_position.distance_to(targets[index + 1].scaled_position)
+		segment_lengths[index - 1] = path.targets[index - 1].scaled_position.distance_to(path.targets[index].scaled_position)
+	if index < path.targets.size() - 1:
+		segment_lengths[index] = path.targets[index].scaled_position.distance_to(path.targets[index + 1].scaled_position)
 	_set_text()
 
 

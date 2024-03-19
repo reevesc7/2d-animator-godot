@@ -5,6 +5,7 @@ extends Node2D
 signal position_changed(prop: Prop)
 
 var scaled_position: Vector2
+var _last_position: Vector2
 
 
 func _ready() -> void:
@@ -12,10 +13,17 @@ func _ready() -> void:
 	_set_scaled_position()
 
 
-func _notification(what: int) -> void:
-	if what == NOTIFICATION_TRANSFORM_CHANGED: 
+#func _notification(what: int) -> void:
+	#if what == NOTIFICATION_TRANSFORM_CHANGED:
+		#_set_scaled_position()
+		#position_changed.emit(self)
+
+
+func _physics_process(_delta: float) -> void:
+	if _last_position != position:
 		_set_scaled_position()
 		position_changed.emit(self)
+	_last_position = position
 
 
 func _set_scaled_position() -> void:

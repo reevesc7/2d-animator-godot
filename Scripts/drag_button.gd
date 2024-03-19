@@ -7,6 +7,9 @@ var down: bool = false
 
 
 func _ready() -> void:
+	if not target:
+		push_warning("DRAGBUTTON: No target; shutting off DragButton functionality")
+		return
 	self.button_down.connect(_on_down)
 	self.button_up.connect(_on_up)
 

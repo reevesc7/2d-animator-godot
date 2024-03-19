@@ -8,6 +8,9 @@ extends Label
 
 
 func _ready() -> void:
+	if not vertex or not initial or not terminal:
+		push_warning("ANGLEREPORT: point(s) missing; angle will be 0")
+		text = "0"
 	vertex.position_changed.connect(_on_point_changed)
 	initial.position_changed.connect(_on_point_changed)
 	terminal.position_changed.connect(_on_point_changed)
