@@ -14,13 +14,13 @@ var path_target: int = 1
 
 func _ready() -> void:
 	if not target:
-		push_warning("FOLLOWER: No target; Follower will not move anything")
+		push_warning("No target; Follower will not move anything")
 		queue_free()
 		return
 	if not path:
 		path = get_node_or_null("Path")
 		if not path:
-			push_warning("FOLLOWER: No Path detectable; Follower will not move target")
+			push_warning("No Path detectable; Follower will not move target")
 			queue_free()
 			return
 	if trigger:

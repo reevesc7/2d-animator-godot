@@ -6,7 +6,7 @@ extends Label
 
 func _ready() -> void:
 	if not target:
-		push_warning("POSITIONREPORT: No target; position will read (0, 0)")
+		push_warning("NO_TARGET: Follwer._ready()")
 		text = "(0, 0)"
 	target.position_changed.connect(_on_target_changed)
 

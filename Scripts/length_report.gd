@@ -1,45 +1,49 @@
+class_name LengthReport
 extends Label
 
 
-@export var path: Path
+signal formula_changed()
 
-var segment_lengths: Array[float]
+enum DistanceFormula {CHEBYSHEV, EUCLIDEAN, MANHATTAN}
 
-
-func _ready() -> void:
-	if not path:
-		path = get_node_or_null("Path")
-		if not path:
-			push_warning("LENGTHREPORT: No Path detectable; length will be 0")
-			text = "0"
-			return
-	for target in path.targets:
-		target.position_changed.connect(_on_target_changed)
-	_init_lengths()
+@export var distance_formula: DistanceFormula = DistanceFormula.EUCLIDEAN:
+	set(value):
+		distance_formula = value
+		formula_changed.emit()
 
 
-func _init_lengths() -> void:
-	segment_lengths = []
-	if path.targets.size() > 1:
-		for target in range(1, path.targets.size()):
-			segment_lengths.append(path.targets[target - 1].scaled_position.distance_to(path.targets[target].scaled_position))
+func update_length(targets: Array[Prop]) -> void:
+	if targets.size() < 2:
+		return
+	var distance_calc: DistanceCalc
+	if distance_formula == DistanceFormula.CHEBYSHEV:
+		distance_calc = ChebyshevCalc.new()
+	elif distance_formula == DistanceFormula.EUCLIDEAN:
+		distance_calc = EuclideanCalc.new()
+	elif distance_formula == DistanceFormula.MANHATTAN:
+		distance_calc = ManhattanCalc.new()
+	var total_length: float = 0.0
+	for target in targets.size() - 1:
+		total_length += distance_calc.calc(targets[target].position, targets[target + 1].position)
+	text = str(snappedf(total_length, 0.001))
 
 
-func _on_target_changed(target: Prop) -> void:
-	var index: int = path.targets.find(target)
-	if index > 0:
-		segment_lengths[index - 1] = path.targets[index - 1].scaled_position.distance_to(path.targets[index].scaled_position)
-	if index < path.targets.size() - 1:
-		segment_lengths[index] = path.targets[index].scaled_position.distance_to(path.targets[index + 1].scaled_position)
-	_set_text()
+class DistanceCalc:
+	func calc(_point1: Vector2, _point2: Vector2) -> float:
+		push_error("UNIMPLEMENTED: DistanceCalc.calc")
+		return 0.0
 
 
-func _sum_lengths(lengths: Array[float]) -> float:
-	var sum: float = 0.0
-	for length in lengths:
-		sum += length
-	return sum
+class ChebyshevCalc extends DistanceCalc:
+	func calc(point1: Vector2, point2: Vector2) -> float:
+		return maxf(absf(point1.x - point2.x), absf(point1.y - point2.y))
 
 
-func _set_text() -> void:
-	text = str(snappedf(_sum_lengths(segment_lengths), 0.001))
+class EuclideanCalc extends DistanceCalc:
+	func calc(point1: Vector2, point2: Vector2) -> float:
+		return point1.distance_to(point2)
+
+
+class ManhattanCalc extends DistanceCalc:
+	func calc(point1: Vector2, point2: Vector2) -> float:
+		return absf(point1.x - point2.x) + absf(point1.y - point2.y)
