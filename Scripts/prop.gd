@@ -4,12 +4,13 @@ extends Node2D
 
 signal position_changed(prop: Prop)
 
+var editor_position: Vector2
 var scaled_position: Vector2
 var _last_position: Vector2
 
 
 func _ready() -> void:
-	set_notify_transform(true)
+	editor_position = position
 	_set_scaled_position()
 
 
