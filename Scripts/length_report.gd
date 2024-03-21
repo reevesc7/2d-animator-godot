@@ -9,22 +9,29 @@ enum DistanceFormula {CHEBYSHEV, EUCLIDEAN, MANHATTAN}
 @export var distance_formula: DistanceFormula = DistanceFormula.EUCLIDEAN:
 	set(value):
 		distance_formula = value
+		_update_distance_calc()
 		formula_changed.emit()
+
+var _distance_calc: DistanceCalc
+
+
+func _ready() -> void:
+	_update_distance_calc()
+
+
+func _update_distance_calc() -> void:
+	if distance_formula == DistanceFormula.CHEBYSHEV:
+		_distance_calc = ChebyshevCalc.new()
+	elif distance_formula == DistanceFormula.EUCLIDEAN:
+		_distance_calc = EuclideanCalc.new()
+	elif distance_formula == DistanceFormula.MANHATTAN:
+		_distance_calc = ManhattanCalc.new()
 
 
 func update_length(targets: Array[Prop]) -> void:
-	if targets.size() < 2:
-		return
-	var distance_calc: DistanceCalc
-	if distance_formula == DistanceFormula.CHEBYSHEV:
-		distance_calc = ChebyshevCalc.new()
-	elif distance_formula == DistanceFormula.EUCLIDEAN:
-		distance_calc = EuclideanCalc.new()
-	elif distance_formula == DistanceFormula.MANHATTAN:
-		distance_calc = ManhattanCalc.new()
 	var total_length: float = 0.0
 	for target in targets.size() - 1:
-		total_length += distance_calc.calc(targets[target].position, targets[target + 1].position)
+		total_length += _distance_calc.calc(targets[target].position, targets[target + 1].position)
 	text = str(snappedf(total_length, 0.001))
 
 

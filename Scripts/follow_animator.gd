@@ -6,9 +6,6 @@ extends Animator
 
 @export var speed: float = 64.0
 
-var moving: bool = false
-var path_target: int = 1
-
 
 func _ready() -> void:
 	if not targets:
@@ -25,23 +22,11 @@ func _ready() -> void:
 		trigger.button_down.connect(_on_triggered)
 
 
-func _physics_process(delta: float) -> void:
-	if not moving:
-		return
-	var target_to_path_target: Vector2 = path.targets[path_target].position - targets[0].position
-	if target_to_path_target.length() > speed * delta:
-		for target in targets:
-			target.position += target_to_path_target.normalized() * speed * delta
-	else:
-		for target in targets:
-			target.position = path.targets[path_target].position
-		path_target += 1
-	if path_target >= path.targets.size():
-		moving = false
-
-
 func animate() -> void:
 	for target in targets:
-		target.position = path.targets[0].position
-	path_target = 1
-	moving = true
+		var tween: Tween = target.create_tween()
+		for path_segment in path.targets.size() - 1:
+			var segment_start: Vector2 = path.targets[path_segment].position
+			var segment_end: Vector2 = path.targets[path_segment + 1].position
+			var segment_length: float = (segment_end - segment_start).length()
+			tween.tween_property(target, "position", segment_end, segment_length / speed).from(segment_start)
