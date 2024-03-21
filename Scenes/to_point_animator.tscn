@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bn7qgkv8qu1gi"]
+
+[ext_resource type="Script" path="res://Scripts/to_point_animator.gd" id="1_blod6"]
+
+[node name="ToPointAnimator" type="Node"]
+script = ExtResource("1_blod6")

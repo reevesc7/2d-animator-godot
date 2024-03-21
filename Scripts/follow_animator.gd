@@ -4,19 +4,16 @@ extends Animator
 
 @export var path: Path
 
-@export var speed: float = 64.0
-@export var relative: bool = false
-
 
 func _ready() -> void:
 	if not targets:
-		push_warning("No targets; Follower will not move anything")
+		push_warning("No targets; nothing to animate")
 		queue_free()
 		return
 	if not path:
 		path = get_node_or_null("Path") as Path
 		if not path:
-			push_warning("No Path detectable; Follower will not move target")
+			push_warning("No Path; targets will not be animated")
 			queue_free()
 			return
 	if trigger:
@@ -32,4 +29,4 @@ func animate() -> void:
 		for path_segment in path.targets.size() - 1:
 			var segment_start: Vector2 = path.targets[path_segment].position - relative_pos
 			var segment_end: Vector2 = path.targets[path_segment + 1].position - relative_pos
-			tween = _make_translation(tween, target, segment_start, segment_end, speed)
+			tween = _make_translation(tween, target, segment_start, segment_end)

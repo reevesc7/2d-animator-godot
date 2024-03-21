@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bo14pgsbuej0f"]
+
+[ext_resource type="Script" path="res://Scripts/reset_animator.gd" id="1_515hg"]
+
+[node name="ResetAnimator" type="Node"]
+script = ExtResource("1_515hg")
