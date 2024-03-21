@@ -2,7 +2,7 @@ class_name Animator
 extends Node
 
 
-@export var target: Prop
+@export var targets: Array[Prop]
 @export var trigger: BaseButton
 
 

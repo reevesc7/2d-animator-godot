@@ -11,8 +11,8 @@ var path_target: int = 1
 
 
 func _ready() -> void:
-	if not target:
-		push_warning("No target; Follower will not move anything")
+	if not targets:
+		push_warning("No targets; Follower will not move anything")
 		queue_free()
 		return
 	if not path:
@@ -28,17 +28,20 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if not moving:
 		return
-	var target_to_path_target: Vector2 = path.targets[path_target].position - target.position
+	var target_to_path_target: Vector2 = path.targets[path_target].position - targets[0].position
 	if target_to_path_target.length() > speed * delta:
-		target.position += target_to_path_target.normalized() * speed * delta
+		for target in targets:
+			target.position += target_to_path_target.normalized() * speed * delta
 	else:
-		target.position = path.targets[path_target].position
+		for target in targets:
+			target.position = path.targets[path_target].position
 		path_target += 1
 	if path_target >= path.targets.size():
 		moving = false
 
 
 func animate() -> void:
-	target.position = path.targets[0].position
+	for target in targets:
+		target.position = path.targets[0].position
 	path_target = 1
 	moving = true

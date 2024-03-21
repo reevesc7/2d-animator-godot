@@ -76,9 +76,9 @@ vertex = NodePath("../Prop2")
 initial = NodePath("../Prop")
 terminal = NodePath("../Prop3")
 
-[node name="FollowAnimator" parent="." node_paths=PackedStringArray("path", "target", "trigger") instance=ExtResource("9_hrnbf")]
+[node name="FollowAnimator" parent="." node_paths=PackedStringArray("path", "targets", "trigger") instance=ExtResource("9_hrnbf")]
 path = NodePath("../Path")
-target = NodePath("../MovingProp")
+targets = [NodePath("../MovingProp")]
 trigger = NodePath("../PlayButton")
 
 [node name="MovingProp" parent="." instance=ExtResource("8_iayus")]
