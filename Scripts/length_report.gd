@@ -6,8 +6,12 @@ enum DistanceFormula {CHEBYSHEV, EUCLIDEAN, MANHATTAN}
 
 @export var targeter: Targeter:
 	set(value):
+		if targeter:
+			targeter.target_changed.disconnect(_on_target_changed)
 		targeter = value
-		_update_targeter()
+		if targeter:
+			targeter.target_changed.connect(_on_target_changed)
+			_update_targeter()
 
 @export var distance_formula: DistanceFormula = DistanceFormula.EUCLIDEAN:
 	set(value):
@@ -18,18 +22,9 @@ var points: Array[Vector2] = []
 var _distance_calc: DistanceCalc
 
 
-#func _ready() -> void:
-	#_update_targeter()
-
-
 func _update_targeter() -> void:
-	if not targeter:
-		return
-	targeter.ready.connect(_on_targeter_ready)
-	targeter.target_changed.connect(_on_target_changed)
-
-
-func _on_targeter_ready() -> void:
+	if not targeter.is_node_ready():
+		await targeter.ready
 	_init_points()
 	_update_distance_calc()
 

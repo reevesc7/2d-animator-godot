@@ -1,23 +1,46 @@
+class_name AngleReport
 extends Label
 
 
-@export var vertex: Prop
-@export var initial: Prop
-@export var terminal: Prop
+@export var vertex: Prop:
+	set(value):
+		if vertex:
+			vertex.position_changed.disconnect(_on_point_moved)
+		vertex = value
+		if vertex:
+			vertex.position_changed.connect(_on_point_moved)
+			_on_point_changed()
+@export var initial: Prop:
+	set(value):
+		if initial:
+			initial.position_changed.disconnect(_on_point_moved)
+		initial = value
+		if initial:
+			initial.position_changed.connect(_on_point_moved)
+			_on_point_changed()
+@export var terminal: Prop:
+	set(value):
+		if terminal:
+			terminal.position_changed.disconnect(_on_point_moved)
+		terminal = value
+		if terminal:
+			terminal.position_changed.connect(_on_point_moved)
+			_on_point_changed()
 
 
 
 func _ready() -> void:
 	if not vertex or not initial or not terminal:
-		push_warning("ANGLEREPORT: point(s) missing; angle will be 0")
+		push_warning("Point(s) missing; angle will be 0")
 		text = "0"
-	vertex.position_changed.connect(_on_point_changed)
-	initial.position_changed.connect(_on_point_changed)
-	terminal.position_changed.connect(_on_point_changed)
-	_update_targets()
 
 
-func _on_point_changed(_prop: Prop) -> void:
+func _on_point_changed() -> void:
+	if vertex and initial and terminal:
+		_update_targets()
+
+
+func _on_point_moved(_prop: Prop) -> void:
 	_update_targets()
 
 

@@ -129,7 +129,15 @@ offset_right = 1894.0
 offset_bottom = 164.0
 text = "Reset"
 
-[node name="Connector" parent="." node_paths=PackedStringArray("targeter", "trigger") instance=ExtResource("12_g0pfm")]
+[node name="Connector" parent="." node_paths=PackedStringArray("clear_trigger", "targeter", "trigger") instance=ExtResource("12_g0pfm")]
 script = ExtResource("13_nly4m")
+clear_trigger = NodePath("../ClearButton")
 targeter = NodePath("../AllTargeter")
 trigger = NodePath("../ResetButton")
+
+[node name="ClearButton" type="Button" parent="."]
+offset_left = 1830.0
+offset_top = 184.0
+offset_right = 1894.0
+offset_bottom = 248.0
+text = "Clear"

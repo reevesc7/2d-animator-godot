@@ -4,6 +4,13 @@ extends PropTargeted
 
 enum ConnectionsType {DENSE, MST}
 
+@export var clear_trigger: BaseButton:
+	set(value):
+		if clear_trigger:
+			clear_trigger.button_down.disconnect(_on_clear_triggered)
+		clear_trigger = value
+		clear_trigger.button_down.connect(_on_clear_triggered)
+
 @export var connections_type: ConnectionsType = ConnectionsType.DENSE:
 	set(value):
 		connections_type = value
@@ -49,6 +56,10 @@ func _make_connection(targets: Array[Prop]) -> void:
 		var new_path_visual: PathVisual = Globals.PathVisualScene.instantiate() as PathVisual
 		add_child(new_path_visual)
 		new_path_visual.targeter = new_targeter
+
+
+func _on_clear_triggered() -> void:
+	clear_connections()
 
 
 class ConnectionMaker:
