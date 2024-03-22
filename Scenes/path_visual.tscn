@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cexcanujbpme4"]
+
+[ext_resource type="Script" path="res://Scripts/path_visual.gd" id="1_5163l"]
+
+[node name="PathVisual" type="Line2D"]
+z_index = -1
+width = 4.0
+default_color = Color(0, 0, 0, 1)
+script = ExtResource("1_5163l")

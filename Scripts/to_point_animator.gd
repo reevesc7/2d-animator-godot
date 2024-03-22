@@ -6,7 +6,7 @@ extends Animator
 
 
 func animate() -> void:
-	for target in targets:
+	for target in targeter.targets:
 		var tween = target.create_tween()
 		var end_point: Vector2 = point
 		if relative:

@@ -2,20 +2,35 @@ class_name LengthReport
 extends Label
 
 
-signal formula_changed()
-
 enum DistanceFormula {CHEBYSHEV, EUCLIDEAN, MANHATTAN}
+
+@export var targeter: Targeter:
+	set(value):
+		targeter = value
+		_update_targeter()
 
 @export var distance_formula: DistanceFormula = DistanceFormula.EUCLIDEAN:
 	set(value):
 		distance_formula = value
 		_update_distance_calc()
-		formula_changed.emit()
 
+var points: Array[Vector2] = []
 var _distance_calc: DistanceCalc
 
 
-func _ready() -> void:
+#func _ready() -> void:
+	#_update_targeter()
+
+
+func _update_targeter() -> void:
+	if not targeter:
+		return
+	targeter.ready.connect(_on_targeter_ready)
+	targeter.target_changed.connect(_on_target_changed)
+
+
+func _on_targeter_ready() -> void:
+	_init_points()
 	_update_distance_calc()
 
 
@@ -26,12 +41,24 @@ func _update_distance_calc() -> void:
 		_distance_calc = EuclideanCalc.new()
 	elif distance_formula == DistanceFormula.MANHATTAN:
 		_distance_calc = ManhattanCalc.new()
+	_update_length()
 
 
-func update_length(targets: Array[Prop]) -> void:
+func _init_points() -> void:
+	points = []
+	for target in targeter.targets:
+		points.append(target.scaled_position)
+
+
+func _on_target_changed(target: Prop) -> void:
+	points[targeter.targets.find(target)] = target.scaled_position
+	_update_length()
+
+
+func _update_length() -> void:
 	var total_length: float = 0.0
-	for target in targets.size() - 1:
-		total_length += _distance_calc.calc(targets[target].position, targets[target + 1].position)
+	for index in points.size() - 1:
+		total_length += _distance_calc.calc(points[index], points[index + 1])
 	text = str(snappedf(total_length, 0.001))
 
 
