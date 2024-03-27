@@ -1,18 +1,20 @@
-[gd_scene load_steps=15 format=3 uid="uid://chlvrrnvlhyg6"]
+[gd_scene load_steps=17 format=3 uid="uid://chlvrrnvlhyg6"]
 
-[ext_resource type="Texture2D" uid="uid://duaorakf3u3bt" path="res://icon.svg" id="1_bqcl0"]
 [ext_resource type="Script" path="res://Scripts/hub_network.gd" id="1_pucml"]
 [ext_resource type="PackedScene" uid="uid://da4rvqq8r5272" path="res://Scenes/drag_button.tscn" id="2_1lp2n"]
 [ext_resource type="PackedScene" uid="uid://d0wpucywhersh" path="res://Scenes/position_report.tscn" id="5_cfn8e"]
 [ext_resource type="PackedScene" uid="uid://cqpu7y25y8vhj" path="res://Scenes/angle_report.tscn" id="6_c28ik"]
 [ext_resource type="PackedScene" uid="uid://die5e47j2w4hj" path="res://Scenes/length_report.tscn" id="7_21xef"]
 [ext_resource type="PackedScene" uid="uid://ji8qhbqe0s2r" path="res://Scenes/prop.tscn" id="8_iayus"]
+[ext_resource type="Texture2D" uid="uid://dckaknmyh11js" path="res://Assets/Textures/terminal.png" id="8_xlpqf"]
 [ext_resource type="PackedScene" uid="uid://dng1g3mcvhmyf" path="res://Scenes/follow_animator.tscn" id="9_hrnbf"]
 [ext_resource type="PackedScene" uid="uid://bo14pgsbuej0f" path="res://Scenes/reset_animator.tscn" id="10_ars2w"]
+[ext_resource type="Texture2D" uid="uid://bumt4lg3g2o4m" path="res://Assets/Textures/intersection_2.png" id="10_yn0ro"]
 [ext_resource type="PackedScene" uid="uid://bn7qgkv8qu1gi" path="res://Scenes/to_point_animator.tscn" id="11_hr86a"]
 [ext_resource type="PackedScene" uid="uid://dxdew45b16dj0" path="res://Scenes/connector.tscn" id="12_g0pfm"]
 [ext_resource type="Script" path="res://Scripts/connector.gd" id="13_nly4m"]
 [ext_resource type="PackedScene" uid="uid://b4ysdkpnjn22m" path="res://Scenes/targeter.tscn" id="14_v3b1s"]
+[ext_resource type="Texture2D" uid="uid://csdt3656fkstm" path="res://Assets/Textures/ribqah.png" id="15_okent"]
 [ext_resource type="PackedScene" uid="uid://cexcanujbpme4" path="res://Scenes/path_visual.tscn" id="16_xw5rs"]
 
 [node name="HubNetwork" type="Node2D"]
@@ -49,7 +51,7 @@ position = Vector2(467, 744)
 target = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="DestTargeter/Prop"]
-texture = ExtResource("1_bqcl0")
+texture = ExtResource("8_xlpqf")
 
 [node name="PositionReport" parent="DestTargeter/Prop" node_paths=PackedStringArray("target") instance=ExtResource("5_cfn8e")]
 offset_top = 64.0
@@ -63,7 +65,7 @@ position = Vector2(762, 396)
 target = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="DestTargeter/Prop2"]
-texture = ExtResource("1_bqcl0")
+texture = ExtResource("10_yn0ro")
 
 [node name="PositionReport" parent="DestTargeter/Prop2" node_paths=PackedStringArray("target") instance=ExtResource("5_cfn8e")]
 offset_top = 64.0
@@ -77,7 +79,7 @@ position = Vector2(1106, 506)
 target = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="DestTargeter/Prop3"]
-texture = ExtResource("1_bqcl0")
+texture = ExtResource("8_xlpqf")
 
 [node name="PositionReport" parent="DestTargeter/Prop3" node_paths=PackedStringArray("target") instance=ExtResource("5_cfn8e")]
 offset_top = 64.0
@@ -86,18 +88,17 @@ target = NodePath("..")
 
 [node name="MoveTargeter" parent="." instance=ExtResource("14_v3b1s")]
 
-[node name="MovingProp" parent="MoveTargeter" instance=ExtResource("8_iayus")]
-position = Vector2(196, 428)
+[node name="Ribqah" parent="MoveTargeter" instance=ExtResource("8_iayus")]
+position = Vector2(1162, 208)
 
-[node name="DragButton" parent="MoveTargeter/MovingProp" node_paths=PackedStringArray("target") instance=ExtResource("2_1lp2n")]
-target = NodePath("..")
+[node name="Sprite2D" type="Sprite2D" parent="MoveTargeter/Ribqah"]
+texture = ExtResource("15_okent")
 
-[node name="Sprite2D" type="Sprite2D" parent="MoveTargeter/MovingProp"]
-texture = ExtResource("1_bqcl0")
-
-[node name="PositionReport" parent="MoveTargeter/MovingProp" node_paths=PackedStringArray("target") instance=ExtResource("5_cfn8e")]
-offset_top = 64.0
-offset_bottom = 88.0
+[node name="DragButton" parent="MoveTargeter/Ribqah" node_paths=PackedStringArray("target") instance=ExtResource("2_1lp2n")]
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
 target = NodePath("..")
 
 [node name="FollowAnimator" parent="." node_paths=PackedStringArray("path_targeter", "targeter", "trigger") instance=ExtResource("9_hrnbf")]
@@ -110,10 +111,9 @@ speed = 0.0
 targeter = NodePath("../AllTargeter")
 trigger = NodePath("../ResetButton")
 
-[node name="ToPointAnimator" parent="." node_paths=PackedStringArray("targeter", "trigger") instance=ExtResource("11_hr86a")]
+[node name="ToPointAnimator" parent="." node_paths=PackedStringArray("targeter") instance=ExtResource("11_hr86a")]
 point = Vector2(400, 400)
 targeter = NodePath("../DestTargeter")
-trigger = NodePath("../PlayButton")
 
 [node name="PlayButton" type="Button" parent="."]
 offset_left = 1830.0
