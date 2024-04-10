@@ -1,5 +1,5 @@
 class_name LengthReport
-extends Label
+extends Report
 
 
 enum DistanceFormula {CHEBYSHEV, EUCLIDEAN, MANHATTAN}

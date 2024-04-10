@@ -1,5 +1,5 @@
 class_name AngleReport
-extends Label
+extends Report
 
 
 @export var vertex: Prop:
