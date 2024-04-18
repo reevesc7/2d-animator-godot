@@ -54,6 +54,8 @@ func _update_length() -> void:
 	var total_length: float = 0.0
 	for index in points.size() - 1:
 		total_length += _distance_calc.calc(points[index], points[index + 1])
+	value = total_length
+	value_updated.emit()
 	text = str(snappedf(total_length, 0.001))
 
 

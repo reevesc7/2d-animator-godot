@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://4qsr2jlmwtpf"]
+
+[ext_resource type="Script" path="res://Scripts/offsetter.gd" id="1_63ghi"]
+
+[node name="Offsetter" type="Node"]
+script = ExtResource("1_63ghi")

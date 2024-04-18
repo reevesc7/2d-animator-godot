@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://chlvrrnvlhyg6"]
+[gd_scene load_steps=19 format=3 uid="uid://chlvrrnvlhyg6"]
 
 [ext_resource type="Script" path="res://Scripts/hub_network.gd" id="1_pucml"]
 [ext_resource type="PackedScene" uid="uid://da4rvqq8r5272" path="res://Scenes/drag_button.tscn" id="2_1lp2n"]
@@ -16,6 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://b4ysdkpnjn22m" path="res://Scenes/targeter.tscn" id="14_v3b1s"]
 [ext_resource type="Texture2D" uid="uid://csdt3656fkstm" path="res://Assets/Textures/ribqah.png" id="15_okent"]
 [ext_resource type="PackedScene" uid="uid://cexcanujbpme4" path="res://Scenes/path_visual.tscn" id="16_xw5rs"]
+[ext_resource type="PackedScene" uid="uid://4qsr2jlmwtpf" path="res://Scenes/offsetter.tscn" id="17_e1nvd"]
+[ext_resource type="Texture2D" uid="uid://duaorakf3u3bt" path="res://icon.svg" id="18_ormjp"]
 
 [node name="HubNetwork" type="Node2D"]
 script = ExtResource("1_pucml")
@@ -141,3 +143,22 @@ offset_top = 184.0
 offset_right = 1894.0
 offset_bottom = 248.0
 text = "CLEAR"
+
+[node name="Offsetter" parent="." node_paths=PackedStringArray("report", "targeter") instance=ExtResource("17_e1nvd")]
+report = NodePath("../LengthReport")
+targeter = NodePath("../OffsetterTargeter")
+
+[node name="OffsetterTargeter" parent="." instance=ExtResource("14_v3b1s")]
+
+[node name="Prop4" parent="OffsetterTargeter" instance=ExtResource("8_iayus")]
+position = Vector2(438, 974)
+
+[node name="Sprite2D" type="Sprite2D" parent="OffsetterTargeter/Prop4"]
+texture = ExtResource("18_ormjp")
+
+[node name="PositionReport" parent="OffsetterTargeter/Prop4" node_paths=PackedStringArray("target") instance=ExtResource("5_cfn8e")]
+offset_left = -55.5
+offset_top = 64.0
+offset_right = 55.5
+offset_bottom = 88.0
+target = NodePath("..")

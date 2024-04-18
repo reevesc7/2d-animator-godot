@@ -51,4 +51,7 @@ func _update_targets() -> void:
 
 
 func _set_text(angle: float) -> void:
-	text = str(snappedf(rad_to_deg(angle), 0.001))
+	var deg_angle: float = rad_to_deg(angle)
+	value = deg_angle
+	value_updated.emit()
+	text = str(snappedf(deg_angle, 0.001))
