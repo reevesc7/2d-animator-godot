@@ -49,6 +49,7 @@ The current list of Reports is as follows:
 ### Misc
 
 * **DragButton**: A button which, when clicked and held, causes the targeted Prop to follow the mouse.
+* **Offsetter**: Offsets the position of a Prop by the scaled numerical value of a Report.
 * **Connector**: Connects all of the targeted Props to one another with PathVisuals.
 
 
