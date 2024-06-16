@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="2d Visuals"
+config/name="2d Animator"
 run/main_scene="res://Examples/hub_network.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
