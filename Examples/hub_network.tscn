@@ -1,0 +1,164 @@
+[gd_scene load_steps=19 format=3 uid="uid://chlvrrnvlhyg6"]
+
+[ext_resource type="Script" path="res://Scripts/hub_network.gd" id="1_lha7k"]
+[ext_resource type="PackedScene" uid="uid://cexcanujbpme4" path="res://Scenes/path_visual.tscn" id="2_b1xv7"]
+[ext_resource type="PackedScene" uid="uid://cqpu7y25y8vhj" path="res://Scenes/angle_report.tscn" id="3_11s23"]
+[ext_resource type="PackedScene" uid="uid://die5e47j2w4hj" path="res://Scenes/length_report.tscn" id="4_cvwt1"]
+[ext_resource type="PackedScene" uid="uid://b4ysdkpnjn22m" path="res://Scenes/targeter.tscn" id="5_hb8cv"]
+[ext_resource type="PackedScene" uid="uid://ji8qhbqe0s2r" path="res://Scenes/prop.tscn" id="6_eusca"]
+[ext_resource type="PackedScene" uid="uid://da4rvqq8r5272" path="res://Scenes/drag_button.tscn" id="7_lrdph"]
+[ext_resource type="Texture2D" uid="uid://dckaknmyh11js" path="res://Assets/Textures/terminal.png" id="8_slt1d"]
+[ext_resource type="PackedScene" uid="uid://d0wpucywhersh" path="res://Scenes/position_report.tscn" id="9_158qo"]
+[ext_resource type="Texture2D" uid="uid://bumt4lg3g2o4m" path="res://Assets/Textures/intersection_2.png" id="10_k2wu4"]
+[ext_resource type="Texture2D" uid="uid://csdt3656fkstm" path="res://Assets/Textures/ribqah.png" id="11_wrgmx"]
+[ext_resource type="PackedScene" uid="uid://dng1g3mcvhmyf" path="res://Scenes/follow_animator.tscn" id="12_8bqfr"]
+[ext_resource type="PackedScene" uid="uid://bo14pgsbuej0f" path="res://Scenes/reset_animator.tscn" id="13_rd53x"]
+[ext_resource type="PackedScene" uid="uid://bn7qgkv8qu1gi" path="res://Scenes/to_point_animator.tscn" id="14_xosfd"]
+[ext_resource type="PackedScene" uid="uid://dxdew45b16dj0" path="res://Scenes/connector.tscn" id="15_ko15p"]
+[ext_resource type="Script" path="res://Scripts/connector.gd" id="16_j5jsj"]
+[ext_resource type="PackedScene" uid="uid://4qsr2jlmwtpf" path="res://Scenes/offsetter.tscn" id="17_xug6b"]
+[ext_resource type="Texture2D" uid="uid://duaorakf3u3bt" path="res://icon.svg" id="18_mj0jo"]
+
+[node name="HubNetwork" type="Node2D"]
+script = ExtResource("1_lha7k")
+
+[node name="PathVisual" parent="." node_paths=PackedStringArray("targeter") instance=ExtResource("2_b1xv7")]
+targeter = NodePath("../DestTargeter")
+
+[node name="AngleReport" parent="." node_paths=PackedStringArray("vertex", "initial", "terminal") instance=ExtResource("3_11s23")]
+offset_left = 12.0
+offset_top = 0.0
+offset_right = 76.0
+offset_bottom = 24.0
+vertex = NodePath("../DestTargeter/Prop2")
+initial = NodePath("../DestTargeter/Prop")
+terminal = NodePath("../DestTargeter/Prop3")
+
+[node name="LengthReport" parent="." node_paths=PackedStringArray("targeter") instance=ExtResource("4_cvwt1")]
+offset_left = 12.0
+offset_top = 24.0
+offset_right = 84.0
+offset_bottom = 48.0
+targeter = NodePath("../DestTargeter")
+
+[node name="AllTargeter" parent="." node_paths=PackedStringArray("targets_parents") instance=ExtResource("5_hb8cv")]
+targets_parents = [NodePath("../DestTargeter"), NodePath("../MoveTargeter")]
+
+[node name="DestTargeter" parent="." instance=ExtResource("5_hb8cv")]
+
+[node name="Prop" parent="DestTargeter" instance=ExtResource("6_eusca")]
+position = Vector2(467, 744)
+
+[node name="DragButton" parent="DestTargeter/Prop" node_paths=PackedStringArray("target") instance=ExtResource("7_lrdph")]
+target = NodePath("..")
+
+[node name="Sprite2D" type="Sprite2D" parent="DestTargeter/Prop"]
+texture = ExtResource("8_slt1d")
+
+[node name="PositionReport" parent="DestTargeter/Prop" node_paths=PackedStringArray("target") instance=ExtResource("9_158qo")]
+offset_top = 64.0
+offset_bottom = 88.0
+target = NodePath("..")
+
+[node name="Prop2" parent="DestTargeter" instance=ExtResource("6_eusca")]
+position = Vector2(762, 396)
+
+[node name="DragButton" parent="DestTargeter/Prop2" node_paths=PackedStringArray("target") instance=ExtResource("7_lrdph")]
+target = NodePath("..")
+
+[node name="Sprite2D" type="Sprite2D" parent="DestTargeter/Prop2"]
+texture = ExtResource("10_k2wu4")
+
+[node name="PositionReport" parent="DestTargeter/Prop2" node_paths=PackedStringArray("target") instance=ExtResource("9_158qo")]
+offset_top = 64.0
+offset_bottom = 88.0
+target = NodePath("..")
+
+[node name="Prop3" parent="DestTargeter" instance=ExtResource("6_eusca")]
+position = Vector2(1106, 506)
+
+[node name="DragButton" parent="DestTargeter/Prop3" node_paths=PackedStringArray("target") instance=ExtResource("7_lrdph")]
+target = NodePath("..")
+
+[node name="Sprite2D" type="Sprite2D" parent="DestTargeter/Prop3"]
+texture = ExtResource("8_slt1d")
+
+[node name="PositionReport" parent="DestTargeter/Prop3" node_paths=PackedStringArray("target") instance=ExtResource("9_158qo")]
+offset_top = 64.0
+offset_bottom = 88.0
+target = NodePath("..")
+
+[node name="MoveTargeter" parent="." instance=ExtResource("5_hb8cv")]
+
+[node name="Ribqah" parent="MoveTargeter" instance=ExtResource("6_eusca")]
+position = Vector2(1162, 208)
+
+[node name="Sprite2D" type="Sprite2D" parent="MoveTargeter/Ribqah"]
+texture = ExtResource("11_wrgmx")
+
+[node name="DragButton" parent="MoveTargeter/Ribqah" node_paths=PackedStringArray("target") instance=ExtResource("7_lrdph")]
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+target = NodePath("..")
+
+[node name="FollowAnimator" parent="." node_paths=PackedStringArray("path_targeter", "targeter", "trigger") instance=ExtResource("12_8bqfr")]
+path_targeter = NodePath("../DestTargeter")
+targeter = NodePath("../MoveTargeter")
+trigger = NodePath("../PlayButton")
+
+[node name="ResetAnimator" parent="." node_paths=PackedStringArray("targeter", "trigger") instance=ExtResource("13_rd53x")]
+speed = 0.0
+targeter = NodePath("../AllTargeter")
+trigger = NodePath("../ResetButton")
+
+[node name="ToPointAnimator" parent="." node_paths=PackedStringArray("targeter") instance=ExtResource("14_xosfd")]
+point = Vector2(400, 400)
+targeter = NodePath("../DestTargeter")
+
+[node name="PlayButton" type="Button" parent="."]
+offset_left = 1830.0
+offset_top = 24.0
+offset_right = 1894.0
+offset_bottom = 88.0
+text = "PLAY"
+
+[node name="ResetButton" type="Button" parent="."]
+offset_left = 1830.0
+offset_top = 100.0
+offset_right = 1894.0
+offset_bottom = 164.0
+text = "RESET"
+
+[node name="Connector" parent="." node_paths=PackedStringArray("clear_trigger", "targeter", "trigger") instance=ExtResource("15_ko15p")]
+script = ExtResource("16_j5jsj")
+clear_trigger = NodePath("../ClearButton")
+targeter = NodePath("../AllTargeter")
+trigger = NodePath("../ResetButton")
+
+[node name="ClearButton" type="Button" parent="."]
+offset_left = 1830.0
+offset_top = 184.0
+offset_right = 1894.0
+offset_bottom = 248.0
+text = "CLEAR"
+
+[node name="Offsetter" parent="." node_paths=PackedStringArray("report", "targeter") instance=ExtResource("17_xug6b")]
+report = NodePath("../LengthReport")
+targeter = NodePath("../OffsetterTargeter")
+
+[node name="OffsetterTargeter" parent="." instance=ExtResource("5_hb8cv")]
+
+[node name="Prop4" parent="OffsetterTargeter" instance=ExtResource("6_eusca")]
+position = Vector2(438, 974)
+
+[node name="Sprite2D" type="Sprite2D" parent="OffsetterTargeter/Prop4"]
+texture = ExtResource("18_mj0jo")
+
+[node name="PositionReport" parent="OffsetterTargeter/Prop4" node_paths=PackedStringArray("target") instance=ExtResource("9_158qo")]
+offset_left = -55.5
+offset_top = 64.0
+offset_right = 55.5
+offset_bottom = 88.0
+target = NodePath("..")
